@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'
 import * as APIUtil from './util/api_util'
-import { receiveAllPokemon } from './actions/pokemon_actions'
+import { receiveAllPokemon, requestAllPokemon } from './actions/pokemon_actions'
+import store from "./store/store"
 
 window.APIUtil = APIUtil;
 window.receiveAllPokemon = receiveAllPokemon;
+window.requestAllPokemon = requestAllPokemon;
+window.store = store;
 
 
 document.addEventListener('DOMContentLoaded', () => {
