@@ -2042,6 +2042,22 @@ var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
 
 /***/ }),
 
+/***/ "./frontend/reducers/selectors.js":
+/*!****************************************!*\
+  !*** ./frontend/reducers/selectors.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "selectAllPokemon": () => (/* binding */ selectAllPokemon)
+/* harmony export */ });
+var selectAllPokemon = function selectAllPokemon(state) {
+  return Object.values(state.entities.pokemon);
+};
+
+/***/ }),
+
 /***/ "./frontend/store/store.js":
 /*!*********************************!*\
   !*** ./frontend/store/store.js ***!
@@ -36750,6 +36766,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_api_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util/api_util */ "./frontend/util/api_util.js");
 /* harmony import */ var _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions/pokemon_actions */ "./frontend/actions/pokemon_actions.js");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducers/selectors */ "./frontend/reducers/selectors.js");
+
 
 
 
@@ -36759,6 +36777,7 @@ window.APIUtil = _util_api_util__WEBPACK_IMPORTED_MODULE_2__;
 window.receiveAllPokemon = _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_3__.receiveAllPokemon;
 window.requestAllPokemon = _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_3__.requestAllPokemon;
 window.store = _store_store__WEBPACK_IMPORTED_MODULE_4__["default"];
+window.selectAllPokemon = _reducers_selectors__WEBPACK_IMPORTED_MODULE_5__.selectAllPokemon;
 document.addEventListener('DOMContentLoaded', function () {
   var container = document.getElementById("root");
   var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(container);
