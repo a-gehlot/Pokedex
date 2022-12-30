@@ -8,8 +8,11 @@ function PokemonIndex(props) {
         props.requestAllPokemon()
     }, [])
 
+    console.log(props)
+
+
     const pokemonItems = props.pokemon.map((poke) => (
-        <PokemonIndexItem key={poke.id} pokemon={poke} />
+        <PokemonIndexItem key={poke.id || 0} pokemon={poke} />
     ))
 
     return(
