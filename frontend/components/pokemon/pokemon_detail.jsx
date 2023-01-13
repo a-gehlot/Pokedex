@@ -6,19 +6,28 @@ export function pokemonDetail (props) {
     const items = props.state.entities.items;
     const moves = props.state.entities.moves;
     const thisPokemon = props.state.entities.pokemon[id]
+    console.log(moves)
     
 
     useEffect(() => {
         props.requestSinglePokemon(id)
-    }, [])
+    }, [id])
 
 
     if (thisPokemon) {
         return(
-            <ul className="pokemon-detail">
-                <img src={thisPokemon.imageUrl} alt={thisPokemon.name} />
-                <h1>Name: {thisPokemon.name}</h1>
-            </ul>
+            <section className="pokemon-detail">
+                <ul>
+                    <figure>
+                        <img src={thisPokemon.imageUrl} alt={thisPokemon.name} />
+                    </figure>
+                    <li><h2>Name: {thisPokemon.name}</h2></li>
+                    <li>Type: {thisPokemon.pokeType}</li>
+                    <li>Attack: {thisPokemon.attack}</li>
+                    <li>Defense: {thisPokemon.defense}</li>
+                </ul>
+            </section>
+
         )
     }
 

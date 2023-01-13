@@ -5429,16 +5429,17 @@ function pokemonDetail(props) {
   var items = props.state.entities.items;
   var moves = props.state.entities.moves;
   var thisPokemon = props.state.entities.pokemon[id];
+  console.log(moves);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.requestSinglePokemon(id);
-  }, []);
+  }, [id]);
   if (thisPokemon) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
       className: "pokemon-detail"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("figure", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       src: thisPokemon.imageUrl,
       alt: thisPokemon.name
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Name: ", thisPokemon.name));
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Name: ", thisPokemon.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Type: ", thisPokemon.pokeType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Attack: ", thisPokemon.attack), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Defense: ", thisPokemon.defense)));
   }
 }
 
@@ -5499,10 +5500,9 @@ function PokemonIndex(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.requestAllPokemon();
   }, []);
-  console.log(props);
   var pokemonItems = props.pokemon.map(function (poke) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pokemon_index_item__WEBPACK_IMPORTED_MODULE_1__.PokemonIndexItem, {
-      key: poke.id || 0,
+      key: poke.id,
       pokemon: poke
     });
   });

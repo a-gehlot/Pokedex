@@ -1,6 +1,6 @@
 json.pokemon do
     json.set! @pokemon.id do 
-        json.extract! @pokemon, :id, :name, :attack, :poke_type
+        json.extract! @pokemon, :id, :name, :attack, :poke_type, :defense
         json.image_url asset_path("pokemon_snaps/#{@pokemon.image_url}")
     end
 end
