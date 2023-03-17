@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { selectPokemonMoveNames } from "../../reducers/selectors";
+import ItemDetailContainer from '../items/item_detail_container'
+import { Item } from "../items/item";
+
 
 export function pokemonDetail (props) {
-    const { id } = useParams()
+    const { pokemonId } = useParams()
     const items = Object.values(props.state.entities.items)
     const moves = selectPokemonMoveNames(props.state)
-    const thisPokemon = props.state.entities.pokemon[id]
+    const thisPokemon = props.state.entities.pokemon[pokemonId]
     
 
     useEffect(() => {
-        props.requestSinglePokemon(id)
-    }, [id])
+        props.requestSinglePokemon(pokemonId)
+    }, [pokemonId])
 
 
     if (thisPokemon) {
         return(
             <section className="pokemon-detail">
+                <Routes>
+                    <Route path="/items/:itemId" element={< ItemDetailContainer />}></Route>
+                </Routes>
                 <ul>
                     <figure>
                         <img src={thisPokemon.imageUrl} alt={thisPokemon.name} />
@@ -29,8 +36,8 @@ export function pokemonDetail (props) {
                 </ul>
                 <section className="toys">
                     <h3>Items</h3>
-                    <ul className="toy-list">
-                        {items.map(item => <li key={item.name}><img src={item.imageUrl} alt={item.name} /></li>)}
+                    <ul className="toy-list">  
+                        {items.map(item => <Item key={item.name} itemProps={item}/>)}
                     </ul>
                 </section>
             </section>

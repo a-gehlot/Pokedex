@@ -16,7 +16,7 @@ function PokemonIndex(props) {
     return(
         <section className="pokedex">
             <Routes>
-                <Route path="/pokemon/:id" element={<PokemonDetailContainer />}></Route>
+                <Route path="/pokemon/:pokemonId/*" element={<PokemonDetailContainer />}></Route>
             </Routes>
             <ul>
                 {pokemonItems}
