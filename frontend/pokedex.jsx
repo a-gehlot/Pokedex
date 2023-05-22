@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom/client'
 import * as APIUtil from './util/api_util'
 import Root from "./root";
-import { receiveAllPokemon, requestAllPokemon, requestSinglePokemon } from './actions/pokemon_actions'
+import { receiveAllPokemon, requestAllPokemon, requestSinglePokemon, createNewPokemon } from './actions/pokemon_actions'
 import store from "./store/store"
 import { selectAllPokemon } from "./reducers/selectors"
 
@@ -12,7 +12,7 @@ window.requestAllPokemon = requestAllPokemon;
 window.store = store;
 window.selectAllPokemon = selectAllPokemon;
 window.requestSinglePokemon = requestSinglePokemon;
-
+window.createNewPokemon = createNewPokemon;
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById("root");

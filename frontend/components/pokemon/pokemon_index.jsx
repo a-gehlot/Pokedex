@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { PokemonIndexItem } from "./pokemon_index_item"
 import { Route, Routes } from "react-router-dom"
 import PokemonDetailContainer from './pokemon_detail_container'
+import PokemonFormContainer from "./pokemon_form_container"
 
 function PokemonIndex(props) {
     useEffect(() => {
@@ -21,6 +22,9 @@ function PokemonIndex(props) {
             <ul>
                 {pokemonItems}
             </ul>
+            <section>
+                <PokemonFormContainer/>
+            </section>
         </section>)
 
 }

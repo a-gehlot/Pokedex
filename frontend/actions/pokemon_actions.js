@@ -24,3 +24,9 @@ export const requestSinglePokemon = (id) => (dispatch) => {
         (payload) => (dispatch(receiveOnePokemon(payload)))
     )
 }
+
+export const createNewPokemon = (pokemon) => (dispatch) => {
+    APIUtil.createPokemon(pokemon).then(
+        (payload) => (dispatch(receiveOnePokemon(payload)))
+    )
+}
