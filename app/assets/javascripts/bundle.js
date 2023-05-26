@@ -5381,8 +5381,9 @@ var requestSinglePokemon = function requestSinglePokemon(id) {
 };
 var createNewPokemon = function createNewPokemon(pokemon) {
   return function (dispatch) {
-    _util_api_util__WEBPACK_IMPORTED_MODULE_0__.createPokemon(pokemon).then(function (payload) {
-      return dispatch(receiveOnePokemon(payload));
+    return _util_api_util__WEBPACK_IMPORTED_MODULE_0__.createPokemon(pokemon).then(function (payload) {
+      dispatch(receiveOnePokemon(payload));
+      return payload;
     });
   };
 };
@@ -5591,6 +5592,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -5598,14 +5600,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+
 function pokemonForm(props) {
   var TYPES = ['fire', 'electric', 'normal', 'ghost', 'psychic', 'water', 'bug', 'dragon', 'grass', 'fighting', 'ice', 'flying', 'poison', 'ground', 'rock', 'steel'];
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       attack: 0,
       defense: 0,
-      image_url: '',
-      name: '',
-      poke_type: 'fire'
+      image_url: '3',
+      name: Math.floor(Math.random() * 10000000),
+      poke_type: 'fire',
+      move_1: Math.floor(Math.random() * 10000000),
+      move_2: Math.floor(Math.random() * 10000000)
     }),
     _useState2 = _slicedToArray(_useState, 2),
     state = _useState2[0],
@@ -5614,25 +5619,31 @@ function pokemonForm(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     types = _useState4[0],
     setTypes = _useState4[1];
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useNavigate)();
   var update = function update(property) {
     return function (e) {
       var newState = Object.assign({}, state);
       newState[property] = e.target.value;
-      console.log(newState);
       setState(newState);
     };
   };
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    props.createNewPokemon(state);
+    props.createNewPokemon(state).then(function (newPokemon) {
+      navigate("pokemon/".concat(Object.keys(newPokemon.pokemon)[0]));
+    });
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Name:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "name"
+  }, "Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "text",
     value: state.name,
     onChange: update('name')
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Poke Type:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "poke_type"
+  }, "Poke Type:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
     name: "type",
     value: state.poke_type,
     onChange: update('poke_type')
@@ -5641,7 +5652,39 @@ function pokemonForm(props) {
       value: type,
       key: type
     }, type);
-  }))));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "image_url"
+  }, "Image URL:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    value: state.image_url,
+    onChange: update('image_url')
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "attack"
+  }, "Attack:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "number",
+    value: state.attack,
+    onChange: update('attack')
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "defense"
+  }, "Defense:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "number",
+    value: state.defense,
+    onChange: update('defense')
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "move_1"
+  }, "Move 1:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    value: state.move_1,
+    onChange: update('move_1')
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+    htmlFor: "move_2"
+  }, "Move 2:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "text",
+    value: state.move_2,
+    onChange: update('move_2')
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    type: "submit"
+  }, "Submit"));
 }
 
 /***/ }),
@@ -5709,7 +5752,10 @@ function PokemonIndex(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
     path: "/pokemon/:pokemonId/*",
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pokemon_detail_container__WEBPACK_IMPORTED_MODULE_2__["default"], null)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, pokemonItems), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pokemon_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Route, {
+    path: "/",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pokemon_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, pokemonItems));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PokemonIndex);
 
@@ -5821,7 +5867,7 @@ var itemsReducer = function itemsReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
   switch (action.type) {
     case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ONE_POKEMON:
-      return action.payload.items;
+      return Object.assign({}, action.payload.items);
     default:
       return state;
   }
@@ -5847,7 +5893,7 @@ var movesReducer = function movesReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
   switch (action.type) {
     case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_ONE_POKEMON:
-      return action.payload.moves;
+      return Object.assign({}, action.payload.moves);
     default:
       return state;
   }

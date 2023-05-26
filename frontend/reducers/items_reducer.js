@@ -3,7 +3,7 @@ import { RECEIVE_ALL_POKEMON, RECEIVE_ONE_POKEMON } from "../actions/pokemon_act
 const itemsReducer = (state = {}, action) => {
     switch(action.type) {
         case RECEIVE_ONE_POKEMON:
-            return action.payload.items;
+            return Object.assign({}, action.payload.items)
         default:
             return state;
     }
