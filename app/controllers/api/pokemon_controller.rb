@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Api::PokemonController < ApplicationController
     def index
         @pokemon = Pokemon.all
@@ -11,7 +13,7 @@ class Api::PokemonController < ApplicationController
 
     def create
         @pokemon = Pokemon.new(pokemon_params)
-        if @pokemon.save!
+        if @pokemon.save
             move_1 = Move.create!(name: move_params[:move_1])
             move_2 = Move.create!(name: move_params[:move_2])
 
