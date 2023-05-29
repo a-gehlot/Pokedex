@@ -5660,15 +5660,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function pokemonForm(props) {
-  var TYPES = ['fire', 'electric', 'normal', 'ghost', 'psychic', 'water', 'bug', 'dragon', 'grass', 'fighting', 'ice', 'flying', 'poison', 'ground', 'rock', 'steel'];
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       attack: 0,
       defense: 0,
-      image_url: '3',
+      image_url: '',
       name: '',
       poke_type: 'fire',
-      move_1: Math.floor(Math.random() * 10000000),
-      move_2: Math.floor(Math.random() * 10000000)
+      move_1: '',
+      move_2: ''
     }),
     _useState2 = _slicedToArray(_useState, 2),
     state = _useState2[0],
@@ -5714,7 +5713,7 @@ function pokemonForm(props) {
     name: "type",
     value: state.poke_type,
     onChange: update('poke_type')
-  }, TYPES.map(function (type) {
+  }, JSON.parse(window.POKEMON_TYPES).map(function (type) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
       value: type,
       key: type

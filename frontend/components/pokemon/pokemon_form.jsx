@@ -2,34 +2,17 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom"
 
 export default function pokemonForm(props) {
-    const TYPES = [
-        'fire',
-        'electric',
-        'normal',
-        'ghost',
-        'psychic',
-        'water',
-        'bug',
-        'dragon',
-        'grass',
-        'fighting',
-        'ice',
-        'flying',
-        'poison',
-        'ground',
-        'rock',
-        'steel'
-    ]
 
     const [state, setState] = useState({
         attack: 0,
         defense: 0,
-        image_url: '3',
+        image_url: '',
         name: '',
         poke_type: 'fire',
-        move_1: Math.floor(Math.random() * 10000000),
-        move_2: Math.floor(Math.random() * 10000000),
+        move_1: '',
+        move_2: '',
     });
+
     const navigate = useNavigate()
 
     const update = (property) => {
@@ -69,7 +52,7 @@ export default function pokemonForm(props) {
                 <br />
                 <label htmlFor="poke_type">Poke Type:</label>
                 <select name="type" value={state.poke_type} onChange={update('poke_type')}>
-                    {TYPES.map((type) => <option value={type} key={type}>{type}</option>)}
+                    {JSON.parse(window.POKEMON_TYPES).map((type) => <option value={type} key={type}>{type}</option>)}
                 </select>
                 <br />
                 <label htmlFor="image_url">Image URL:</label>
