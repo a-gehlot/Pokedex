@@ -46,7 +46,7 @@ export default function pokemonForm(props) {
             return (
                 <ul>
                     {Object.values(errArray).map((err) => {
-                        return (<li className="error">{err}</li>)
+                        return (<li className="error" key={err}>{err}</li>)
                     })}
                 </ul>
             )

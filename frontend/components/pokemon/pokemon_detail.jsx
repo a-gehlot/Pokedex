@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { selectPokemonMoveNames } from "../../reducers/selectors";
 import ItemDetailContainer from '../items/item_detail_container'
 import { Item } from "../items/item";
+import LoadingIcon from "./loading_icon";
 
 
 export function pokemonDetail (props) {
@@ -17,8 +18,10 @@ export function pokemonDetail (props) {
         props.requestSinglePokemon(pokemonId)
     }, [pokemonId])
 
+    console.log(props.loading)
 
-    if (thisPokemon) {
+
+    if (thisPokemon && !props.loading.detailLoading) {
         return(
             <section className="pokemon-detail">
                 <Routes>
@@ -41,6 +44,10 @@ export function pokemonDetail (props) {
                     </ul>
                 </section>
             </section>
+        )
+    } else {
+        return (
+            <LoadingIcon />
         )
     }
 

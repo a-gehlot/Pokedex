@@ -8,6 +8,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state) => ({
     state: state,
+    loading: state.ui.loading
 })
 
 export default connect(
