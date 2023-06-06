@@ -1,17 +1,35 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom"
+import React, {useState } from "react";
+import {useNavigate, useParams} from "react-router-dom"
+import { useEffect } from "react";
 
 export default function pokemonForm(props) {
-
-    const [state, setState] = useState({
-        attack: 0,
-        defense: 0,
-        image_url: '',
-        name: '',
-        poke_type: 'fire',
-        move_1: '',
-        move_2: '',
-    });
+    const {pokemonId} = useParams()
+    
+    const [state, setState] = useState(() => {
+        if (!pokemonId) {
+            return ({
+                attack: 0,
+                defense: 0,
+                image_url: '',
+                name: '',
+                poke_type: 'fire',
+                move_1: '',
+                move_2: '',
+            })
+        } else {
+            let pokemon = store.getState().entities.pokemon[pokemonId]
+            return ({
+                id: pokemon['id'],
+                attack: pokemon['attack'],
+                defense: pokemon['defense'],
+                image_url: pokemon['imageUrl'],
+                name: pokemon['name'],
+                poke_type: pokemon['pokeType'],
+                move_1: (pokemon['move_1'] ? pokemon['move_1'] : ''),
+                move_2: (pokemon['move_2'] ? pokemon['move_2'] : '')
+            })
+        }
+    })
 
     const navigate = useNavigate()
 
@@ -38,9 +56,15 @@ export default function pokemonForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.createNewPokemon(state).then(newPokemon => {
-            navigate(`pokemon/${Object.keys(newPokemon.pokemon)[0]}`)
-        });
+        if (!pokemonId) {
+            props.createNewPokemon(state).then(newPokemon => {
+                navigate(`pokemon/${Object.keys(newPokemon.pokemon)}`)
+            })
+        } else {
+            props.requestUpdatePokemon(state).then(updatedPokemon => {
+                navigate(`pokemon/${Object.keys(updatedPokemon.pokemon)}}`)
+            })
+        }
     }
 
     return(

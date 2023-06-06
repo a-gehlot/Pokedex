@@ -4,7 +4,8 @@ import PokemonIndexContainer from './pokemon/pokemon_index_container'
 
 const App = () => (
     <Routes>
-        <Route path="*" element={<PokemonIndexContainer />} />
+        {/* <Route path="/pokemon/*" element={<PokemonIndexContainer />} /> */}
+        <Route path="/*" element={<PokemonIndexContainer />} />
     </Routes>
 )
 

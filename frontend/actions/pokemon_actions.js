@@ -43,6 +43,14 @@ export const requestSinglePokemon = (id) => (dispatch) => {
     )
 }
 
+export const requestUpdatePokemon = (pokemon) => (dispatch) => (
+    APIUtil.updatePokemon(pokemon).then(
+        (payload) => {(dispatch(receiveOnePokemon(payload)))
+            return payload
+        }, (error) => {(dispatch(receivePokemonErrors(error.responseJSON)))}
+    )
+)
+
 export const createNewPokemon = (pokemon) => (dispatch) => (
     APIUtil.createPokemon(pokemon).then(
         (payload) => {(dispatch(receiveOnePokemon(payload)))

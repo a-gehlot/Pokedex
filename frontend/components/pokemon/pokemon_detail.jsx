@@ -1,25 +1,20 @@
-import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { selectPokemonMoveNames } from "../../reducers/selectors";
 import ItemDetailContainer from '../items/item_detail_container'
 import { Item } from "../items/item";
 import LoadingIcon from "./loading_icon";
 
-
 export function pokemonDetail (props) {
-    const { pokemonId } = useParams()
+    const { pokemonId } = useParams({pokemonId})
     const items = Object.values(props.state.entities.items)
     const moves = selectPokemonMoveNames(props.state)
     const thisPokemon = props.state.entities.pokemon[pokemonId]
-    
 
     useEffect(() => {
         props.requestSinglePokemon(pokemonId)
     }, [pokemonId])
-
-    console.log(props.loading)
-
 
     if (thisPokemon && !props.loading.detailLoading) {
         return(
@@ -42,6 +37,11 @@ export function pokemonDetail (props) {
                     <ul className="toy-list">  
                         {items.map(item => <Item key={item.name} itemProps={item}/>)}
                     </ul>
+                </section>
+                <section className={'pokedex'}>
+                        <Link to={`/pokemon/${pokemonId}/edit`}>
+                            <button>Edit Pokemon</button>
+                        </Link>
                 </section>
             </section>
         )
